@@ -1,0 +1,14 @@
+# Ngoài cân bằng: nhiễu "hoạt động" không kèm ma sát -> FDT phải bị vi phạm.
+id: amcs-langevin-active
+author: "Hoang E"
+course: AMCS
+system: langevin
+law: "Langevin + nhiễu hoạt động"
+params: {m: 1.0, k: 2.0, gamma: 1.0, kT: 1.0, seed: 7, active: 1.0}
+initial: {x0: 0.0, v0: 0.0}
+t_span: [0.0, 400.0]
+dt: 0.005
+# Kỳ vọng: X ≈ T/T_eff ≈ 0.5 vì nhiễu hoạt động làm nhiệt độ hiệu dụng tăng gấp đôi
+checks: [{name: fdt, expect: violated}]
+license: CC-BY-4.0
+consent_physeval: true

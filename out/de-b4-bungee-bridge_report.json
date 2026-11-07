@@ -1,0 +1,61 @@
+{
+  "id": "de-b4-bungee-bridge",
+  "author": "Group Bungee (fill student IDs)",
+  "course": "DE",
+  "system": "bungee_jump",
+  "passed_all": true,
+  "checks": [
+    {
+      "name": "answer_matches",
+      "passed": true,
+<<<<<<< HEAD
+      "value": 1.856640259144486e-08,
+=======
+      "value": 2.1653578769233924e-07,
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+      "threshold": 0.01,
+      "note": "đáp án 50 so với mô phỏng 50"
+    },
+    {
+      "name": "reference_match",
+      "passed": true,
+<<<<<<< HEAD
+      "value": 4.42057200368749e-08,
+=======
+      "value": 5.155612879472114e-07,
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+      "threshold": 0.001,
+      "note": "lowest_point: sim=50 ref=50; max_stretch: sim=30 ref=30; max_deceleration_g: sim=2.33333 ref=2.33333"
+    },
+    {
+      "name": "energy_conserved",
+      "passed": true,
+<<<<<<< HEAD
+      "value": 1.3278861045544456e-12,
+=======
+      "value": 1.1956936736373384e-06,
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+      "threshold": 0.0001,
+      "note": "độ trôi năng lượng tương đối lớn nhất"
+    }
+  ],
+  "quantities": {
+<<<<<<< HEAD
+    "lowest_point": 49.99999907167989,
+    "max_stretch": 29.999999071679888,
+    "max_deceleration_g": 2.3333332301866534,
+    "n_bounces": 0,
+    "x_final": 1.3234079500731535,
+    "v_final": 5.095612228174001
+=======
+    "lowest_point": 49.99998917321296,
+    "max_stretch": 29.99998917321296,
+    "max_deceleration_g": 2.333332130356995,
+    "n_bounces": 0,
+    "x_final": 1.3234168217755884,
+    "v_final": 5.095643425632107
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+  },
+  "consent_physeval": false,
+  "license": "CC-BY-4.0"
+}

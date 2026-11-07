@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: wmlab
+Version: 0.1.1
+Summary: Physics-law world-model lab: scenario contract, reference simulators, verifiers
+Requires-Python: >=3.9
+Requires-Dist: numpy>=1.24
+Requires-Dist: pyyaml>=6

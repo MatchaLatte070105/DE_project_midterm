@@ -1,0 +1,40 @@
+{
+  "id": "de-b4-bungee-failing-bigstep",
+  "author": "Group Bungee (fill student IDs)",
+  "course": "DE",
+  "system": "bungee_jump",
+  "passed_all": false,
+  "checks": [
+    {
+      "name": "answer_matches",
+      "passed": false,
+      "value": 0.6390623326439021,
+      "threshold": 0.005,
+      "note": "đáp án 44.81 so với mô phỏng 124.149"
+    },
+    {
+      "name": "energy_conserved",
+      "passed": false,
+      "value": 87.02634819218775,
+      "threshold": 0.0001,
+      "note": "độ trôi năng lượng tương đối lớn nhất"
+    },
+    {
+      "name": "reference_match",
+      "passed": false,
+      "value": 4.422689844681722,
+      "threshold": 0.001,
+      "note": "lowest_point: sim=124.149 ref=44.8068; max_stretch: sim=104.149 ref=24.8068; max_deceleration_g: sim=14.1666 ref=2.61246"
+    }
+  ],
+  "quantities": {
+    "lowest_point": 124.14886018474446,
+    "max_stretch": 104.14886018474446,
+    "max_deceleration_g": 14.166573494210638,
+    "n_bounces": 0,
+    "x_final": -1731.1663352474748,
+    "v_final": -13.55195679815364
+  },
+  "consent_physeval": false,
+  "license": "CC-BY-4.0"
+}

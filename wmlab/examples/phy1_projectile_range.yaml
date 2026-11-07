@@ -1,0 +1,22 @@
+# Bài PHY1 mẫu: tầm xa khi không có lực cản. Sinh viên tự tính 'answer' bằng công thức.
+id: phy1-proj-range-demo
+author: "Nguyen Van A (MSSV ...)"
+course: PHY1
+system: projectile_drag
+law: "Định luật 2 Newton, gia tốc trọng trường đều, bỏ qua lực cản"
+params: {g: 9.81, k_over_m: 0.0, m: 1.0}
+initial: {v0: 20.0, angle_deg: 35.0, h0: 0.0}
+t_span: [0.0, 4.0]
+dt: 0.001
+question:
+  text: "Một quả bóng được ném với vận tốc 20 m/s, góc 35°, từ mặt đất. Tính tầm xa."
+  quantity: range
+  answer: 38.31          # R = v0^2 sin(2θ)/g
+  unit: m
+  tolerance: 0.005       # sai số tương đối cho phép
+misconceptions:
+  - "Góc 45° luôn cho tầm xa lớn nhất, kể cả khi ném từ độ cao h0 > 0"
+  - "Vận tốc tại đỉnh quỹ đạo bằng 0"
+checks: [answer_matches, energy_conserved, {name: analytic_match, tol: 1.0e-6}]
+license: CC-BY-4.0
+consent_physeval: true

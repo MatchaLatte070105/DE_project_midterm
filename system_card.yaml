@@ -1,0 +1,38 @@
+system: bungee_jump
+title: "Bungee jump with piecewise elastic rope and optional quadratic drag"
+authors: ["Group Bungee (fill student IDs)"]
+domain: mechanics
+equation: |
+  x measured downward from the platform:
+    m x'' = m g                         when x <= L0
+    m x'' = m g - k (x - L0) - c_d v|v| when x > L0
+order_and_type: "second-order piecewise-linear (non-smooth force at x = L0)"
+state:
+  - {name: x, unit: m, meaning: "position downward from platform"}
+  - {name: v, unit: m/s, meaning: "velocity downward"}
+parameters:
+  - {name: m, unit: kg, meaning: "jumper mass", sample_range: [50, 100]}
+  - {name: L0, unit: m, meaning: "unstretched rope length", sample_range: [15, 30]}
+  - {name: k, unit: N/m, meaning: "rope stiffness"}
+  - {name: c_d, unit: kg/m, meaning: "quadratic drag coefficient", sample_range: [0, 3]}
+  - {name: g, unit: m/s^2, meaning: "gravity"}
+initial_conditions:
+  - {name: x0, unit: m, sample_range: [0, 0]}
+  - {name: v0, unit: m/s, sample_range: [0, 0]}
+time: {t_span: [0, 60], dt: 0.01, unit: s}
+analytic_solution:
+  available: "only the lowest point (via energy) when c_d = 0"
+  formula: "x_max = [mg + sqrt((mg)^2 + 2 k mg L0)] / k ; lowest = L0 + x_max"
+  derivation_in_report: "section 1 – energy method"
+reference_values: "lowest_point, max_stretch, max_deceleration_g from energy conservation"
+physical_properties:
+  - "mechanical energy conserved when c_d = 0"
+  - "mechanical energy non-increasing when c_d > 0"
+numerical_methods: ["euler", "heun", "rk4"]
+observed_convergence_order: {euler: null, heun: null, rk4: null}
+validity_limits: "Rope modelled as massless ideal spring; drag is simplified."
+known_failure_modes: "Without event handling the kink reduces RK4 order; large Euler steps violate energy."
+dataset:
+  command: "python -m wmlab dataset --system bungee_jump --module bungee_jump.py --n 200 -o bungee_jump.npz"
+  n_trajectories: 200
+license: CC-BY-4.0

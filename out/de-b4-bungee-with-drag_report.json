@@ -1,0 +1,39 @@
+{
+  "id": "de-b4-bungee-with-drag",
+  "author": "Group Bungee (fill student IDs)",
+  "course": "DE",
+  "system": "bungee_jump",
+  "passed_all": true,
+  "checks": [
+    {
+      "name": "energy_nonincreasing",
+      "passed": true,
+<<<<<<< HEAD
+      "value": -6.781145876041055e-14,
+=======
+      "value": -6.78445698242584e-14,
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+      "threshold": 1e-06,
+      "note": "mức tăng năng lượng lớn nhất giữa hai bước (phải ≤ 0 khi có cản)"
+    }
+  ],
+  "quantities": {
+<<<<<<< HEAD
+    "lowest_point": 38.134364319547124,
+    "max_stretch": 18.134364319547124,
+    "max_deceleration_g": 1.6407986485433412,
+    "n_bounces": 22,
+    "x_final": 27.57010489386309,
+    "v_final": -0.28496658925859675
+=======
+    "lowest_point": 38.134364319547224,
+    "max_stretch": 18.134364319547224,
+    "max_deceleration_g": 1.6407986485433557,
+    "n_bounces": 22,
+    "x_final": 27.570105023877577,
+    "v_final": -0.28496617236964733
+>>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
+  },
+  "consent_physeval": false,
+  "license": "CC-BY-4.0"
+}

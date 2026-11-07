@@ -1,0 +1,19 @@
+# Bài PHY1 nâng cao: có lực cản thì không có nghiệm giải tích — dự đoán chiều thay đổi rồi kiểm chứng.
+id: phy1-proj-drag-demo
+author: "Nguyen Van A"
+course: PHY1
+system: projectile_drag
+law: "Định luật 2 Newton với lực cản bậc hai F = -k|v|v"
+params: {g: 9.81, k_over_m: 0.02, m: 1.0}
+initial: {v0: 20.0, angle_deg: 35.0, h0: 0.0}
+t_span: [0.0, 4.0]
+dt: 0.001
+question:
+  text: "Có lực cản k/m = 0.02 /m. Tầm xa còn bao nhiêu? Sinh viên giải thích vì sao nhỏ hơn 38.31 m và vì sao góc tối ưu không còn là 45°."
+  quantity: range
+  answer: 25.43
+  unit: m
+  tolerance: 0.02
+checks: [answer_matches, energy_nonincreasing, convergence_order]
+license: CC-BY-4.0
+consent_physeval: false

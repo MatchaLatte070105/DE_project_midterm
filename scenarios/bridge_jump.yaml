@@ -1,0 +1,32 @@
+# Bridge design – choose k so the 70 kg jumper stops 5 m above the water (55 m bridge)
+id: de-b4-bungee-bridge
+author: "Group Bungee (fill student IDs)"
+course: DE
+system: bungee_jump
+law: "Energy conservation determines the stiffness needed for a safe 5 m clearance"
+params:
+  m: 70.0
+  L0: 20.0
+  k: 76.3
+  g: 9.81
+  c_d: 0.0
+  method: rk4
+  event_handling: true
+initial:
+  x0: 0.0
+  v0: 0.0
+t_span: [0.0, 40.0]
+dt: 0.005
+question:
+  text: "For a 55 m bridge, what stiffness k makes a 70 kg jumper stop 5 m above the water?"
+  quantity: lowest_point
+  answer: 50.0
+  unit: m
+  tolerance: 0.01
+checks:
+  - answer_matches
+  - {name: reference_match, tol: 1.0e-3}
+  - {name: energy_conserved, tol: 1.0e-4}
+ai_use: "none"
+license: CC-BY-4.0
+consent_physeval: false

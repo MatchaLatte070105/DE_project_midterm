@@ -1,0 +1,32 @@
+# Baseline – no drag; energy conservation + reference lowest point must PASS
+id: de-b4-bungee-baseline
+author: "Group Bungee (fill student IDs)"
+course: DE
+system: bungee_jump
+law: "Piecewise Newton's second law: free fall then Hooke's law for the rope (no drag)"
+params:
+  m: 70.0
+  L0: 20.0
+  k: 100.0
+  g: 9.81
+  c_d: 0.0
+  method: rk4
+  event_handling: true
+initial:
+  x0: 0.0
+  v0: 0.0
+t_span: [0.0, 40.0]
+dt: 0.005
+question:
+  text: "A 70 kg jumper drops from rest on a 20 m rope with k = 100 N/m. What is the lowest point reached?"
+  quantity: lowest_point
+  answer: 44.81
+  unit: m
+  tolerance: 0.005
+checks:
+  - answer_matches
+  - {name: reference_match, tol: 1.0e-3}
+  - {name: energy_conserved, tol: 1.0e-4}
+ai_use: "none"
+license: CC-BY-4.0
+consent_physeval: false
