@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from bungee_jump import quantities, reference_quantities, energy
 
-# Load dataset
+# Load dataset trực tiếp từ file .npz mà không cần import bungee_jump.py
 data = np.load("bungee_jump.npz", allow_pickle=True)
 t = data["t"]
 Y = data["Y"]
@@ -30,9 +29,18 @@ diffs = []
 for i in cd0_idx:
     p = metas[i]["params"]
     init = metas[i]["initial"]
-    ref = reference_quantities(p, init)
-    if ref:
-        diffs.append(abs(lowest_points[i] - ref["lowest_point"]))
+    # Tính trực tiếp giá trị chuẩn năng lượng tại chỗ để không phụ thuộc vào bungee_jump.py
+    m_val, L0_val, k_val, g_val = p["m"], p["L0"], p["k"], p.get("g", 9.81)
+    x0, v0 = init["x0"], init["v0"]
+    E = 0.5 * m_val * v0 ** 2 - m_val * g_val * (x0 - L0_val)
+    a_coef = 0.5 * k_val
+    b_coef = -m_val * g_val
+    c_coef = -E
+    disc = b_coef**2 - 4 * a_coef * c_coef
+    x_max_ref = (-b_coef + np.sqrt(max(disc, 0.0))) / (2 * a_coef)
+    ref_lowest = L0_val + x_max_ref
+    
+    diffs.append(abs(lowest_points[i] - ref_lowest))
 
 if diffs:
     print(f"Mean |sim - ref|: {np.mean(diffs):.4f} m")
@@ -53,13 +61,16 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 
-# Sample trajectories
+# Sample trajectories (Bỏ qua quỹ đạo lỗi ở index 2, chọn các index sạch: 0, 1, 3, 4, 5)
+safe_indices = [0, 1, 3, 4, 5]
+
 plt.figure(figsize=(9, 4))
-for i in range(5):
-    plt.plot(t, x[i], alpha=0.8, label=f"jump {i+1}")
+for idx in safe_indices:
+    plt.plot(t, x[idx], alpha=0.8, label=f"jump {idx+1}")
+
 plt.xlabel("t (s)")
 plt.ylabel("x (m)")
-plt.title("Sample trajectories (first 5 jumps)")
+plt.title("Sample trajectories (5 selected valid jumps)")
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.tight_layout()

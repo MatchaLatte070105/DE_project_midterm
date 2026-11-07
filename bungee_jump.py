@@ -1,6 +1,5 @@
 """Bungee jump — free fall then piecewise-linear elastic rope (optional quadratic drag).
 
-<<<<<<< HEAD
     m x'' = m g                           when x <= L0   (free fall / slack rope)
     m x'' = m g - k (x - L0) - c_d v |v|  when x > L0    (rope stretched)
 
@@ -19,7 +18,6 @@ NAME = "bungee_jump"          # used as system: in scenario files
 STATE = ["x", "v"]            # state variables in the order of vector y = [x, v]
 CONVERGENCE_MODE = "self"     # self-convergence across step sizes (covers both c_d = 0 and c_d > 0)
 INVARIANT_NAME = "energy"     # conserved mechanical energy when c_d = 0
-=======
 x is measured downward from the platform [m]:
     m * x'' = m * g                         when x <= L0   (free fall / slack rope)
     m * x'' = m * g - k*(x - L0) - c_d*v*|v| when x > L0   (rope stretched)
@@ -32,17 +30,13 @@ NAME = "bungee_jump"
 STATE = ["x", "v"]
 CONVERGENCE_MODE = "self"
 INVARIANT_NAME = "energy"
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
 
 
 # 1. THE MODEL
 def rhs(t, y, p):
-<<<<<<< HEAD
     """Right-hand side f(t, y) of the first-order system y' = f(t, y).
     A second-order equation x'' = g(t, x, x') must be rewritten as y = [x, v], y' = [v, a]."""
-=======
     """Right-hand side of the first-order system y' = f(t, y), y = [x, v]."""
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     x, v = float(y[0]), float(y[1])
     m = p["m"]
     g = p.get("g", 9.81)
@@ -50,7 +44,6 @@ def rhs(t, y, p):
     k = p["k"]
     c_d = p.get("c_d", 0.0)
 
-<<<<<<< HEAD
     # Piecewise equation of motion using if/else for slack (x <= L0) vs. taut (x > L0) rope
     if x <= L0:
         a = g - (c_d / m) * v * abs(v)
@@ -61,7 +54,6 @@ def rhs(t, y, p):
 
 
 # 2. NUMERICAL METHODS (provided)
-=======
     a = g
     if x > L0:
         a -= (k / m) * (x - L0)
@@ -71,14 +63,12 @@ def rhs(t, y, p):
 
 
 # 2. NUMERICAL METHODS
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
 def _step(f, t, y, h, p, method):
     if method == "euler":
         return y + h * f(t, y, p)
     if method == "heun":
         k1 = f(t, y, p)
         k2 = f(t + h, y + h * k1, p)
-<<<<<<< HEAD
         return y + h / 2 * (k1 + k2)
     k1 = f(t, y, p)
     k2 = f(t + h / 2, y + h / 2 * k1, p)
@@ -108,7 +98,6 @@ def _find_taut_time(t, y, dt, p, method):
 
 def simulate(p, init, t_span, dt):
     """Returns t (n+1,) and Y (n+1, len(STATE))."""
-=======
         return y + 0.5 * h * (k1 + k2)
     # classical RK4
     k1 = f(t, y, p)
@@ -141,22 +130,17 @@ def _find_taut_time(t, y, dt, p, method):
 
 def simulate(p, init, t_span, dt):
     """Integrate. When event_handling=True the step lands exactly on the taut instant."""
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     n = int(round((t_span[1] - t_span[0]) / dt))
     t = t_span[0] + dt * np.arange(n + 1)
     Y = np.empty((n + 1, len(STATE)))
     Y[0] = [init["x0"], init["v0"]]
     method = p.get("method", "rk4")
-<<<<<<< HEAD
     use_event = bool(p.get("event_handling", True))
-=======
     use_event = bool(p.get("event_handling", False))
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     L0 = p["L0"]
 
     for i in range(n):
         y_next = _step(rhs, t[i], Y[i], dt, p, method)
-<<<<<<< HEAD
         # Event handling at the kink x = L0 (restores RK4 4th-order convergence)
         if use_event:
             cross_down = (Y[i, 0] <= L0 < y_next[0])
@@ -168,7 +152,6 @@ def simulate(p, init, t_span, dt):
                     y_next = _step(rhs, t_cross, y_cross, h_rem, p, method)
                 else:
                     y_next = y_cross
-=======
         if use_event and Y[i, 0] <= L0 < y_next[0]:
             t_cross, y_cross = _find_taut_time(t[i], Y[i], dt, p, method)
             h_rem = t[i] + dt - t_cross
@@ -176,19 +159,16 @@ def simulate(p, init, t_span, dt):
                 y_next = _step(rhs, t_cross, y_cross, h_rem, p, method)
             else:
                 y_next = y_cross
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
         Y[i + 1] = y_next
     return t, Y
 
 
-<<<<<<< HEAD
 #  3. ANALYTIC SOLUTION
 def analytic(p, init, t):
     return None
 
 
 #  4. QUANTITIES OF INTEREST
-=======
 # 3. ANALYTIC / REFERENCE
 def analytic(p, init, t):
     """No closed-form time history → return None (convergence uses mode='self')."""
@@ -234,7 +214,6 @@ def reference_quantities(p, init):
 
 
 # 4. QUANTITIES OF INTEREST
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
 def quantities(p, init, t, Y):
     x = Y[:, 0]
     v = Y[:, 1]
@@ -247,11 +226,8 @@ def quantities(p, init, t, Y):
     x_max = max(lowest_point - L0, 0.0)
     max_decel_g = float((k * x_max / m - g) / g)
 
-<<<<<<< HEAD
     # Count local maxima of x that exceed L0 + 1 m when drag is present
-=======
     # count local maxima of x that exceed L0 + 1 m
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     n_bounces = 0
     if p.get("c_d", 0.0) > 0.0:
         for i in range(1, len(x) - 1):
@@ -270,7 +246,6 @@ def quantities(p, init, t, Y):
     }
 
 
-<<<<<<< HEAD
 def _energy_lowest_point(p, init):
     """Exact lowest point from mechanical energy conservation (valid when c_d = 0)."""
     m = p["m"]
@@ -315,18 +290,15 @@ def energy(p, Y):
     """OPTIONAL: total energy along the trajectory (enables energy_conserved / energy_nonincreasing).
     Zero of gravitational potential is taken at x = L0 so E(0) = m * g * L0 > 0."""
     x, v = Y[:, 0], Y[:, 1]
-=======
 # 5. PHYSICAL CONSTRAINTS
 def energy(p, Y):
     """Mechanical energy. Zero of gravitational potential is at x = L0."""
     x = Y[:, 0]
     v = Y[:, 1]
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     m = p["m"]
     g = p.get("g", 9.81)
     L0 = p["L0"]
     k = p["k"]
-<<<<<<< HEAD
     stretch = np.maximum(x - L0, 0.0)
     return 0.5 * m * v ** 2 - m * g * (x - L0) + 0.5 * k * stretch ** 2
 
@@ -350,7 +322,6 @@ def sample(rng):
     m = float(rng.uniform(50.0, 100.0))
     L0 = float(rng.uniform(15.0, 30.0))
     # Static stretch m*g/k between 3 m and 12 m
-=======
     E = 0.5 * m * v ** 2 - m * g * (x - L0)
     stretch = np.maximum(x - L0, 0.0)
     E += 0.5 * k * stretch ** 2
@@ -367,7 +338,6 @@ def sample(rng):
     m = float(rng.uniform(50.0, 100.0))
     L0 = float(rng.uniform(15.0, 30.0))
     # static stretch mg/k between 3 m and 12 m
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     k = float(m * 9.81 / rng.uniform(3.0, 12.0))
     c_d = float(rng.choice([0.0, rng.uniform(0.5, 3.0)]))
     p = {
@@ -383,14 +353,11 @@ def sample(rng):
     return p, init, [0.0, 60.0], 0.01
 
 
-<<<<<<< HEAD
 def validate_run(p, init, t, Y, tol_energy=1e-4, tol_ref=1e-3):
     """Quick helper check of energy conservation and reference match."""
-=======
 # 7. HELPERS
 def validate_run(p, init, t, Y, tol_energy=1e-4, tol_ref=1e-3):
     """Quick check of energy conservation and reference match."""
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
     qty = quantities(p, init, t, Y)
     ref = reference_quantities(p, init)
     E = energy(p, Y)
@@ -409,8 +376,5 @@ def validate_run(p, init, t, Y, tol_energy=1e-4, tol_ref=1e-3):
             "ref_diff": float(diff),
             "ref_ok": diff < tol_ref,
         })
-<<<<<<< HEAD
     return out
-=======
     return out
->>>>>>> 237699285c7ab16befbbd4b048d268b112bd5057
