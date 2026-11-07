@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load dataset trực tiếp từ file .npz mà không cần import bungee_jump.py
+# Load dataset 
 data = np.load("bungee_jump.npz", allow_pickle=True)
 t = data["t"]
 Y = data["Y"]
@@ -29,7 +29,6 @@ diffs = []
 for i in cd0_idx:
     p = metas[i]["params"]
     init = metas[i]["initial"]
-    # Tính trực tiếp giá trị chuẩn năng lượng tại chỗ để không phụ thuộc vào bungee_jump.py
     m_val, L0_val, k_val, g_val = p["m"], p["L0"], p["k"], p.get("g", 9.81)
     x0, v0 = init["x0"], init["v0"]
     E = 0.5 * m_val * v0 ** 2 - m_val * g_val * (x0 - L0_val)
@@ -61,7 +60,7 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 
-# Sample trajectories (Bỏ qua quỹ đạo lỗi ở index 2, chọn các index sạch: 0, 1, 3, 4, 5)
+# Sample trajectories 
 safe_indices = [0, 1, 3, 4, 5]
 
 plt.figure(figsize=(9, 4))
