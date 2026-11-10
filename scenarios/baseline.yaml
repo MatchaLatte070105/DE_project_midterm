@@ -1,6 +1,6 @@
 # Baseline – no drag; energy conservation + reference lowest point must PASS
 id: de-b4-bungee-baseline
-author: "Group Bungee (fill student IDs)"
+author: "Group Bungee Jump"
 course: DE
 system: bungee_jump
 law: "Piecewise Newton's second law: free fall then Hooke's law for the rope (no drag)"

@@ -1,6 +1,6 @@
 # Bridge design – choose k so the 70 kg jumper stops 5 m above the water (55 m bridge)
 id: de-b4-bungee-bridge
-author: "Group Bungee (fill student IDs)"
+author: "Group Bungee Jump"
 course: DE
 system: bungee_jump
 law: "Energy conservation determines the stiffness needed for a safe 5 m clearance"

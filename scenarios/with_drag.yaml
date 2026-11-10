@@ -1,6 +1,6 @@
 # Drag case – energy is non-increasing; bounce counting
 id: de-b4-bungee-with-drag
-author: "Group Bungee (fill student IDs)"
+author: "Group Bungee Jump"
 course: DE
 system: bungee_jump
 law: "Quadratic air drag dissipates energy; oscillations eventually fall below 1 m amplitude"

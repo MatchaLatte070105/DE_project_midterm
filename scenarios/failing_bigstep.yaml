@@ -1,6 +1,6 @@
 # Deliberately failing scenario – Euler with a large step loses energy and accuracy
 id: de-b4-bungee-failing-bigstep
-author: "Group Bungee (fill student IDs)"
+author: "Group Bungee Jump"
 course: DE
 system: bungee_jump
 law: "Same physics, but Euler method with dt too large (demonstrates loss of order / stability)"
